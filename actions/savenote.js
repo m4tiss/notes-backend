@@ -1,14 +1,21 @@
 const Note = require('../database/models/note');
 
-module.exports = async function(req,res){
+module.exports = async function(req, res) {
     const title = req.body.title;
     const body = req.body.body;
-    const newNote = await new Note({
-        title:title,
-        body:body
-    });
-    newNote.save().then(()=>{
-        console.log("saved!")
-    });
-    res.status(200).json(newNote);
+    
+    try {
+        const newNote = new Note({
+            title: title,
+            body: body
+        });
+        
+        await newNote.save();
+        
+        console.log("saved!");
+        res.status(200).json(newNote);
+    } catch(error) {
+        
+        return res.status(422).json({ message: error.message });
+    }
 }
