@@ -7,7 +7,7 @@ module.exports = async function(req, res) {
         if (!note) {
             return res.status(404).json({ message: "Note not found." });
         }
-        res.sendStatus(204).json({message: "Note deleted."});
+        res.status(200).json({message: "Note deleted."});
     } catch (error) {
         console.error(error);
         res.status(404).json({ message: "Note not found." });
