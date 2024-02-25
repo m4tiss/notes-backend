@@ -11,15 +11,17 @@ module.exports = async function(req,res){
         }
         const title = req.body.title;
         const body = req.body.body;
-        note.title = title,
-        note.body = body
-      
-        await note.save().then(()=>{
-            console.log("edited!")
-        });
-        res.status(200).json(note);
+
+        try{
+            note.title = title;
+            note.body = body;
+            await note.save();
+            res.status(200).json(note);
+        }
+        catch(err){
+            return res.status(422).json({ message: err.message });
+        }
     } catch (error) {
-        console.error(error);
         res.status(404).json({ message: "Note not exist." });
     }
 }

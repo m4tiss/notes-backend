@@ -9,7 +9,6 @@ module.exports = async function(req,res){
         }
         res.status(200).json(note);
     } catch (error) {
-        console.error(error);
         res.status(404).json({ message: "Note not exist." });
     }
 }
